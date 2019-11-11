@@ -79,7 +79,13 @@ class FormContainer extends Component {
 
         }).then(response => {
             console.log("Successful testing" );
-            this.componentDidMount.bind(this);
+            let apiURL = "http://localhost:8080/restfulservice/rest/usersubmissions/";
+            fetch(apiURL).then(response => {
+                response.json().then(data => {
+                    console.log("Successful" + data.submission);
+                    this.setState({ UserPost: data })
+                })
+            })
         })
     }
 

@@ -58,7 +58,7 @@ public class CRUDServices  {
 	 */
 	public static void main(String args[]) throws UnknownHostException, ParseException {
 		CRUDServices mongoDB=new CRUDServices();
-		//mongoDB.remove(new BasicDBObject());
+		mongoDB.remove(new BasicDBObject());
 		UserPost userPost=new UserPost();
 		//userPost.setSubmissionId(3l);
 		userPost.setSubmission("ThirdSubmission");

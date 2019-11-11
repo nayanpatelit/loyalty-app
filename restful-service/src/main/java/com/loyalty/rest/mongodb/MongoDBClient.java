@@ -21,7 +21,7 @@ public abstract class MongoDBClient {
 		
 		log.info("Entry-getMongoDBClient()");
 		
-		if(mongoClient == null)
+		if(mongoClient == null) {
 			try {
 				mongoClient= new MongoClient(new MongoClientURI(Constants.MONGODB_URL));
 				
@@ -30,7 +30,7 @@ public abstract class MongoDBClient {
 			}catch(Exception e){
 				log.error("Exception while connecting with Mongo DB server"+e.getMessage());
 			}
-		
+		}
 		log.info("Exist -getMongoDBClient()"+mongoClient.hashCode());
 		
 		return mongoClient;
@@ -39,9 +39,9 @@ public abstract class MongoDBClient {
 	 * Get MongoDb Collection
 	 */
 	public static DBCollection getMongoDBCollection()  {
-		if(dbObj==null)
+		if(dbObj==null) {
 		   dbObj=MongoDBClient.getMongoDBClient().getDB(Constants.MONGODB_DATABASE);
-		
+		}
 		log.debug("getMongoDBCollection()"+dbObj.hashCode());
 		
 		return dbObj.getCollection(Constants.MONGODB_DB_COLLECTION);

@@ -7,8 +7,7 @@ const UserPost = ({ UserPost }) => {
             {UserPost.map((UserPost) => (
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{UserPost.submission}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{UserPost.submissionDate}</h6>
+                        <h5 class="card-title">{UserPost.submission}-{UserPost.submissionDate}</h5>
                     </div>
                 </div>
             ))}
