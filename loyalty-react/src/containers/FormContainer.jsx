@@ -18,19 +18,31 @@ class FormContainer extends Component {
                 
             },
             UserPost:[]
-
+           
         }
-        
+         this.componentDidMount=this.componentDidMount.bind(this);
         this.handleFullName = this.handleFullName.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleClearForm = this.handleClearForm.bind(this);
         this.handleInput = this.handleInput.bind(this);
+        
     }
+    componentDidMount(e) {
+        let apiURL = "http://localhost:8080/restfulservice/rest/usersubmissions/";        
+        fetch(apiURL).then(response => {
+            response.json().then(data => {
+                console.log("Successful" + data.submission);
+                this.setState({ UserPost: data })
+            })
+        })
+    }
+   
 
     /* This lifecycle hook gets executed when the component mounts */
 
     handleFullName(e) {
         let value = e.target.value;
+        
         this.setState(prevState => ({
             newUser:
             {
@@ -58,11 +70,16 @@ class FormContainer extends Component {
         let userData = this.state.newUser;
         let apiURL="http://localhost:8080/restfulservice/rest/usersubmissions/"+userData.name;
         console.log("User entered" +userData.name);
-        fetch(apiURL).then(response => {
-            response.json().then(data => {
-                console.log("Successful" + data.submission);
-                this.setState({ UserPost: data.submission })
-            })
+        fetch(apiURL,{
+            method:'POST',
+            headers:{
+                'Accept':'text/plain',
+                'Content-Type':'text/plain'
+            }
+
+        }).then(response => {
+            console.log("Successful testing" );
+            this.componentDidMount.bind(this);
         })
     }
 
@@ -90,8 +107,8 @@ class FormContainer extends Component {
                     handleChange={this.handleInput}
 
                 /> {/* Name of the user */}
-
-               <UserPost UserPost={this.state.UserPost}/>
+     
+               <UserPost UserPost={this.state.UserPost} handleChange={this.componentDidMount}/>
 
                 <Button
                     action={this.handleFormSubmit}

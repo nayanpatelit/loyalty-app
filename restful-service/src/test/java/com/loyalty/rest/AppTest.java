@@ -1,10 +1,8 @@
 package com.loyalty.rest;
-import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.server.ResourceConfig;
@@ -28,10 +26,15 @@ public class AppTest extends JerseyTest
     return new ResourceConfig(App.class);
     }
     @Test
-    public void testshouldAnswerWithTrue()
+    public void testGetSubmission()
     {
-         Response response = target("/usersubmissions/nayan").request().get();
-         System.out.println("My response"+response.readEntity(String.class));
+         Response response = target("/usersubmissions").request().get();
+         assertEquals("should return status 200", 200, response.getStatus());
+    }
+    @Test
+    public void testPostSubmission()
+    {
+         Response response = target("/usersubmissions/nayan").request().post(Entity.text("Loyalty Test"));
          assertEquals("should return status 200", 200, response.getStatus());
     }
 }
