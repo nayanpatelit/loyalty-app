@@ -14,17 +14,20 @@ class FormContainer extends Component {
 
         this.state = {
             newUser: {
-                name: ''
+                name: '',
+
+                post:''
                 
             },
             UserPost:[]
            
         }
-         this.componentDidMount=this.componentDidMount.bind(this);
-        this.handleFullName = this.handleFullName.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.componentDidMount=this.componentDidMount.bind(this);
+        this.handleFormSubmit=this.handleFormSubmit.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
         this.handleClearForm = this.handleClearForm.bind(this);
         this.handleInput = this.handleInput.bind(this);
+         this.handleInputPost = this.handleInputPost.bind(this);
         
     }
     componentDidMount(e) {
@@ -40,15 +43,14 @@ class FormContainer extends Component {
 
     /* This lifecycle hook gets executed when the component mounts */
 
-    handleFullName(e) {
-        let value = e.target.value;
-        
-        this.setState(prevState => ({
-            newUser:
-            {
-                ...prevState.newUser, name: value
-            }
-        }), () => console.log(this.state.newUser))
+    handleBlur(e) {
+        let apiURL = "http://localhost:8080/restfulservice/rest/usersubmissions?userName=" + this.state.newUser.name;
+        fetch(apiURL).then(response => {
+            response.json().then(data => {
+                console.log("Successful hello" + data.submissionDate);
+                this.setState({ UserPost: data })
+            })
+        })
     }
 
     
@@ -61,6 +63,19 @@ class FormContainer extends Component {
                 ...prevState.newUser, [name]: value
             }
         }), () => console.log(this.state.newUser))
+
+       
+    }
+
+    handleInputPost(e) {
+        let value = e.target.value;
+        let post = e.target.name;
+        this.setState(prevState => ({
+            newUser:
+            {
+                ...prevState.newUser, [post]: value
+            }
+        }), () => console.log(this.state.newUser))
     }
 
     
@@ -68,13 +83,20 @@ class FormContainer extends Component {
     handleFormSubmit(e) {
         e.preventDefault();
         let userData = this.state.newUser;
-        let apiURL="http://localhost:8080/restfulservice/rest/usersubmissions/"+userData.name;
+        let apiURL="http://localhost:8080/restfulservice/rest/usersubmissions/";
         console.log("User entered" +userData.name);
+        console.log("User entered" + userData.post);
         fetch(apiURL,{
             method:'POST',
+            body: JSON.stringify({
+                'userName': userData.name,
+                'submission': userData.post,
+                'submissionId':null,
+                'submissionDate':null
+            }),
             headers:{
-                'Accept':'text/plain',
-                'Content-Type':'text/plain'
+                'Accept':'application/json',
+                'Content-Type':'application/json'
             }
 
         }).then(response => {
@@ -94,9 +116,10 @@ class FormContainer extends Component {
         e.preventDefault();
         this.setState({
             newUser: {
-                name: ''
+                name: '',
+                post:''
             },
-            UserPost:[]
+            UserPost:[] 
         })
     }
 
@@ -106,16 +129,23 @@ class FormContainer extends Component {
             <form className="container-fluid" onSubmit={this.handleFormSubmit}>
 
                 <Input inputType={'text'}
-                    title={'User Submission'}
+                    title={'User Name'}
                     name={'name'}
                     value={this.state.newUser.name}
-                    placeholder={'Submit your comment'}
+                    placeholder={'Enter Your UserName'}
                     handleChange={this.handleInput}
+                    onBlur={this.handleBlur}
+
+                /> {/* Name of the user */}
+                <Input inputType={'text'}
+                    title={'User Post '}
+                    name={'post'}
+                    value={this.state.newUser.post}
+                    placeholder={'Submit your post'}
+                    handleChange={this.handleInputPost}
 
                 /> {/* Name of the user */}
      
-               <UserPost UserPost={this.state.UserPost} handleChange={this.componentDidMount}/>
-
                 <Button
                     action={this.handleFormSubmit}
                     type={'primary'}
@@ -129,6 +159,7 @@ class FormContainer extends Component {
                     title={'Clear'}
                     style={buttonStyle}
                 /> {/* Clear the form */}
+                <UserPost UserPost={this.state.UserPost} />
 
             </form>
 

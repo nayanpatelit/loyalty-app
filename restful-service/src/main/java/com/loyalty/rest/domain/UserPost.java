@@ -3,6 +3,7 @@ package com.loyalty.rest.domain;
 
 
 public class UserPost {
+	private String userName;
 	private Long submissionId;
 	private String submission;
 	private String submissionDate;
@@ -11,15 +12,31 @@ public class UserPost {
 	public UserPost() {
 		}
 
-	public UserPost(String submission, String submissionDate) {
+	
+
+	public UserPost(String userName, String submission, String submissionDate) {
 		super();
+		this.userName = userName;
 		this.submission = submission;
 		this.submissionDate = submissionDate;
 	}
 
+
 	public String getSubmission() {
 		return submission;
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
 
 	public void setSubmission(String submission) {
 		this.submission = submission;
@@ -38,11 +55,15 @@ public class UserPost {
 	public void setSubmissionDate(String submissionDate) {
 		this.submissionDate = submissionDate;
 	}
+
+
+
 	@Override
 	public String toString() {
-		return "UserPost [submissionId=" + submissionId + ", submission=" + submission + ", submissionDate="
-				+ submissionDate + "]";
+		return "UserPost [userName=" + userName + ", submission=" + submission + ", submissionDate=" + submissionDate
+				+ "]";
 	}
+	
 	
 		
 	

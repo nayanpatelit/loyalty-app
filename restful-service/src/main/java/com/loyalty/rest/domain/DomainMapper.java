@@ -9,7 +9,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.loyalty.rest.constants.Constants;
-import com.loyalty.rest.mongodb.MongoDBClient;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -23,8 +22,9 @@ public class DomainMapper {
 	 * Map User Post with MongoDB Object
 	 */
 	public static  final DBObject toDBObject(UserPost submission) {
-	    return new BasicDBObject("submission", submission.getSubmission())
-	                     .append("submissionDate", sdf.format(new Date()));
+	    return new BasicDBObject(Constants.SUBMISSION, submission.getSubmission())
+	                     .append(Constants.SUBMISSION_DATE, sdf.format(new Date()))
+	                     .append(Constants.USER_NAME, submission.getUserName());
 	                    
 	}
 	
@@ -44,6 +44,7 @@ public class DomainMapper {
 			userPost=new UserPost();
 			userPost.setSubmission((String)dbObject.get(Constants.SUBMISSION));
 			userPost.setSubmissionDate((String)dbObject.get(Constants.SUBMISSION_DATE));
+			userPost.setUserName((String)dbObject.get(Constants.USER_NAME));
 			userPostList.add(userPost);
 		}
 		cursor.close();

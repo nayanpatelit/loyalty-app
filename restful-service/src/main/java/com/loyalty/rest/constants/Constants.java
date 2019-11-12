@@ -4,6 +4,7 @@ public class Constants {
 
 	public static final String SUBMISSION="submission";
 	public static final String SUBMISSION_DATE="submissionDate";
+	public static final String USER_NAME="userName";
 	
 	/*
 	 * MongoDb properties

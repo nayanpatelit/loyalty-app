@@ -3,6 +3,10 @@ import static org.junit.Assert.assertEquals;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.Form;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.server.ResourceConfig;
@@ -33,8 +37,13 @@ public class AppTest extends JerseyTest
     }
     @Test
     public void testPostSubmission()
-    {
-         Response response = target("/usersubmissions/nayan").request().post(Entity.text("Loyalty Test"));
+    {    String jsonStr="{\"userName\":\"hello nayan\",\"submission\":test,\"submissionId\":null,\"submissionDate\":null}";
+    MultivaluedMap<String, String> requestParams =
+            new MultivaluedHashMap<>(); 
+    requestParams.add("jsonUserPost", jsonStr);
+    
+    
+    Response response = target("/usersubmissions").request().post(Entity.json(jsonStr) );
          assertEquals("should return status 200", 200, response.getStatus());
     }
 }
