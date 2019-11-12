@@ -38,13 +38,13 @@ public abstract class MongoDBClient {
 	/*
 	 * Get MongoDb Collection
 	 */
-	public static DBCollection getMongoDBCollection()  {
+	public static DBCollection getMongoDBCollection(String collectionName)  {
 		if(dbObj==null) {
 		   dbObj=MongoDBClient.getMongoDBClient().getDB(Constants.MONGODB_DATABASE);
 		}
 		log.debug("getMongoDBCollection()"+dbObj.hashCode());
 		
-		return dbObj.getCollection(Constants.MONGODB_DB_COLLECTION);
+		return dbObj.getCollection(collectionName);
 	}
 	
 

@@ -14,9 +14,16 @@ const UserPost = ({ UserPost }) => {
                         <Button
                             type={'primary'}
                             title={'Reply'}
-                            style={buttonStyle}
-                        /> </p></h3>
-                        <p style={responseStyle}>{UserPost.postResponses} </p>           
+                            style={buttonStyle}/> </p>
+                        </h3>
+                        {UserPost.postResponses.map((postResponses) => (
+                            <div>
+                                <h3 style={responseStyle}>{postResponses.responder}</h3>
+
+                                <p style={responseStyle}>{postResponses.response}-{postResponses.responseDate}</p>
+                            </div>
+                        ))}
+                             
                         
                     </div>
                 </div>

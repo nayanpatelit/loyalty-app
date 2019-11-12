@@ -10,7 +10,8 @@ public class UserPost {
 	private ObjectId userSubmissionId;
 	private String submission;
 	private String submissionDate;
-	private List<String> postResponses;
+	private List<PostResponses> postResponses;
+	
 	
 		
 	public UserPost() {
@@ -26,13 +27,15 @@ public class UserPost {
 	}
 
 
-	public List<String> getPostResponses() {
+	
+	
+	public List<PostResponses> getPostResponses() {
 		return postResponses;
 	}
 
 
 
-	public void setPostResponses(List<String> postResponses) {
+	public void setPostResponses(List<PostResponses> postResponses) {
 		this.postResponses = postResponses;
 	}
 

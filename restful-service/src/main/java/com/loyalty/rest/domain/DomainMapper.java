@@ -30,6 +30,17 @@ public class DomainMapper {
 	                    
 	}
 	
+	
+	/*
+	 * Map User Post with MongoDB Response Object
+	 */
+	public static  final DBObject toResponseDBObject(PostResponses response) {
+	    return new BasicDBObject(Constants.RESPONSE, response.getResponse())
+	                     .append(Constants.RESPONSE_DATE, sdf.format(new Date()))
+	                     .append(Constants.RESPONDER, response.getResponder())
+	                     .append(Constants.USER_SUBMISSION_ID, response.getUserSubmissionId());
+	                    
+	}
 	/*
 	 * Map DBCursor value from MongoDB to UserPost List
 	 */
@@ -48,12 +59,42 @@ public class DomainMapper {
 			userPost.setSubmission((String)dbObject.get(Constants.SUBMISSION));
 			userPost.setSubmissionDate((String)dbObject.get(Constants.SUBMISSION_DATE));
 			userPost.setUserName((String)dbObject.get(Constants.USER_NAME));
-			userPost.setUserSubmissionId((ObjectId)dbObject.get(Constants.USER_SUBMISSION_ID));
-			userPost.setPostResponses((List<String>)dbObject.get(Constants.POST_RESPONSES));
+			userPost.setUserSubmissionId((ObjectId)dbObject.get(Constants.MONGODB_UNIQUE_ID));
+			//userPost.setPostResponses((List<String>)dbObject.get(Constants.POST_RESPONSES));
 			userPostList.add(userPost);
+			
+			userPost=null;
+			dbObject=null;
 		}
 		cursor.close();
 		return userPostList;
+	}
+
+	
+	@SuppressWarnings("unchecked")
+	public  static final List<PostResponses> toResponseDomainObject(DBCursor cursor) throws ParseException {
+		
+		List<PostResponses> postResponsesList=new ArrayList<PostResponses>();
+		
+		PostResponses postResponses=null;
+		DBObject dbObject=null;
+		
+		while(cursor.hasNext()) {
+			dbObject=cursor.next();
+			postResponses=new PostResponses();
+			postResponses.setUserSubmissionId((ObjectId)dbObject.get(Constants.USER_SUBMISSION_ID));
+			postResponses.setResponseId((ObjectId)dbObject.get(Constants.MONGODB_UNIQUE_ID));
+			postResponses.setResponder((String)dbObject.get(Constants.RESPONDER));
+			postResponses.setResponse((String)dbObject.get(Constants.RESPONSE));
+			postResponses.setResponseDate((String)dbObject.get(Constants.RESPONSE_DATE));
+			
+			postResponsesList.add(postResponses);
+			
+			postResponses=null;
+			dbObject=null;
+		}
+		cursor.close();
+		return postResponsesList;
 	}
 
 }
