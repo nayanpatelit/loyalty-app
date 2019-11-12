@@ -1,12 +1,16 @@
 package com.loyalty.rest.domain;
 
+import java.util.List;
 
+import org.bson.types.ObjectId;
 
 public class UserPost {
 	private String userName;
 	private Long submissionId;
+	private ObjectId userSubmissionId;
 	private String submission;
 	private String submissionDate;
+	private List<String> postResponses;
 	
 		
 	public UserPost() {
@@ -20,6 +24,18 @@ public class UserPost {
 		this.submission = submission;
 		this.submissionDate = submissionDate;
 	}
+
+
+	public List<String> getPostResponses() {
+		return postResponses;
+	}
+
+
+
+	public void setPostResponses(List<String> postResponses) {
+		this.postResponses = postResponses;
+	}
+
 
 
 	public String getSubmission() {
@@ -58,15 +74,33 @@ public class UserPost {
 
 
 
+	
+	public ObjectId getUserSubmissionId() {
+		return userSubmissionId;
+	}
+
+
+
+	public void setUserSubmissionId(ObjectId userSubmissionId) {
+		this.userSubmissionId = userSubmissionId;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "UserPost [userName=" + userName + ", submission=" + submission + ", submissionDate=" + submissionDate
-				+ "]";
+		return "UserPost [userName=" + userName + ", submissionId=" + submissionId + ", userSubmissionId="
+				+ userSubmissionId + ", submission=" + submission + ", submissionDate=" + submissionDate
+				+ ", postResponses=" + postResponses + "]";
 	}
+
+
+
 	
-	
+
+
+
 		
-	
 	
 
 }

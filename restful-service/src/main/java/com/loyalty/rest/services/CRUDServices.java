@@ -3,6 +3,7 @@ package com.loyalty.rest.services;
 import java.lang.reflect.Field;
 import java.net.UnknownHostException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -71,26 +72,33 @@ public class CRUDServices  {
 		mongoDB.remove(new BasicDBObject());
 		UserPost userPost=new UserPost();
 		//userPost.setSubmissionId(3l);
-		userPost.setSubmission("ssdfsdfs");
+		userPost.setSubmission("Cooking");
 		userPost.setSubmissionDate(new Date().toString());
 		userPost.setUserName("sweta");
+		String[] array = {"a", "b", "c", "d", "e"};
+		userPost.setPostResponses(Arrays.asList(array));
 		mongoDB.insert(userPost);
 		
 		userPost=new UserPost();
 		//userPost.setSubmissionId(4l);
-		userPost.setSubmission("233232 Submission");
+		userPost.setSubmission("studying");
 		userPost.setSubmissionDate(new Date().toString());
 		userPost.setUserName("manav");
+		userPost.setPostResponses(Arrays.asList(array));
 		mongoDB.insert(userPost);
 		
 		UserPost searchCriteria=new UserPost();
-		searchCriteria.setSubmissionId(3l);
+		//searchCriteria.setSubmissionId(3l);
 		searchCriteria.setUserName("nayan");
-		searchCriteria.setSubmission("ssdfsdfs");
-		List<UserPost> myList=mongoDB.queryUserPost(searchCriteria);
+		searchCriteria.setSubmission("technical");
+		List<UserPost> myList=mongoDB.queryUserPost(null);
 		
 		for(UserPost usrObj: myList) {
 			System.out.println(usrObj.toString());
+			if(usrObj.getPostResponses()!=null) {
+			for(String respo:usrObj.getPostResponses())
+				System.out.println("****"+respo);
+			}	
 		}
 		
 		

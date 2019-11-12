@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 
 import com.loyalty.rest.constants.Constants;
 import com.mongodb.BasicDBObject;
@@ -24,7 +25,8 @@ public class DomainMapper {
 	public static  final DBObject toDBObject(UserPost submission) {
 	    return new BasicDBObject(Constants.SUBMISSION, submission.getSubmission())
 	                     .append(Constants.SUBMISSION_DATE, sdf.format(new Date()))
-	                     .append(Constants.USER_NAME, submission.getUserName());
+	                     .append(Constants.USER_NAME, submission.getUserName())
+	                     .append(Constants.POST_RESPONSES, submission.getPostResponses());
 	                    
 	}
 	
@@ -32,6 +34,7 @@ public class DomainMapper {
 	 * Map DBCursor value from MongoDB to UserPost List
 	 */
 	
+	@SuppressWarnings("unchecked")
 	public  static final List<UserPost> toDomainObject(DBCursor cursor) throws ParseException {
 		
 		List<UserPost> userPostList=new ArrayList<UserPost>();
@@ -45,6 +48,8 @@ public class DomainMapper {
 			userPost.setSubmission((String)dbObject.get(Constants.SUBMISSION));
 			userPost.setSubmissionDate((String)dbObject.get(Constants.SUBMISSION_DATE));
 			userPost.setUserName((String)dbObject.get(Constants.USER_NAME));
+			userPost.setUserSubmissionId((ObjectId)dbObject.get(Constants.USER_SUBMISSION_ID));
+			userPost.setPostResponses((List<String>)dbObject.get(Constants.POST_RESPONSES));
 			userPostList.add(userPost);
 		}
 		cursor.close();
