@@ -108,12 +108,13 @@ public class CRUDServices {
 	 */
 	public static void main(String args[]) throws UnknownHostException, ParseException {
 		CRUDServices mongoDB = new CRUDServices();
-		// mongoDB.remove(new BasicDBObject());
+		mongoDB.remove(new BasicDBObject());
 		UserPost userPost = new UserPost();
 		// userPost.setSubmissionId(3l);
 		userPost.setSubmission("Cooking");
 		userPost.setSubmissionDate(new Date().toString());
 		userPost.setUserName("sweta");
+		userPost.setCity("MAnsa");
 		// String[] array = {"a", "b", "c", "d", "e"};
 		// userPost.setPostResponses(Arrays.asList(array));
 		mongoDB.insert(userPost);
@@ -123,6 +124,7 @@ public class CRUDServices {
 		userPost.setSubmission("studying-graduating");
 		userPost.setSubmissionDate(new Date().toString());
 		userPost.setUserName("Aryan");
+		userPost.setCity("Ajax");
 		// userPost.setPostResponses(Arrays.asList(array));
 		mongoDB.insert(userPost);
 
@@ -164,10 +166,7 @@ public class CRUDServices {
 		}
 		for (UserPost usrObj : myList) {
 			System.out.println(usrObj.toString());
-			/*
-			 * if(usrObj.getPostResponses()!=null) { for(String
-			 * respo:usrObj.getPostResponses()) System.out.println("****"+respo); }
-			 */
+			
 		}
 
 	}

@@ -15,8 +15,8 @@ class FormContainer extends Component {
         this.state = {
             newUser: {
                 name: '',
-
-                post:''
+                post:'',
+                city:''
                 
             },
             UserPost:[]
@@ -28,6 +28,7 @@ class FormContainer extends Component {
         this.handleClearForm = this.handleClearForm.bind(this);
         this.handleInput = this.handleInput.bind(this);
          this.handleInputPost = this.handleInputPost.bind(this);
+         this.handleInputCity = this.handleInputCity.bind(this);
         
     }
     componentDidMount(e) {
@@ -78,6 +79,17 @@ class FormContainer extends Component {
         }), () => console.log(this.state.newUser))
     }
 
+    handleInputCity(e) {
+        let value = e.target.value;
+        let city = e.target.name;
+        this.setState(prevState => ({
+            newUser:
+            {
+                ...prevState.newUser, [city]: value
+            }
+        }), () => console.log(this.state.newUser))
+    }
+
     
 
     handleFormSubmit(e) {
@@ -91,6 +103,7 @@ class FormContainer extends Component {
             body: JSON.stringify({
                 'userName': userData.name,
                 'submission': userData.post,
+                'city':userData.city,
                 'submissionId':null,
                 'submissionDate':null
             }),
@@ -117,9 +130,9 @@ class FormContainer extends Component {
         this.setState({
             newUser: {
                 name: '',
-                post:''
-            },
-            UserPost:[] 
+                post:'',
+                city:''
+            } 
         })
     }
 
@@ -144,6 +157,14 @@ class FormContainer extends Component {
                     placeholder={'Submit your post'}
                     handleChange={this.handleInputPost}
 
+                /> {/* Name of the user */}
+                <Input inputType={'text'}
+                    title={'User City'}
+                    name={'city'}
+                    value={this.state.newUser.city}
+                    placeholder={'Enter your City'}
+                    handleChange={this.handleInputCity}
+                    
                 /> {/* Name of the user */}
      
                 <Button

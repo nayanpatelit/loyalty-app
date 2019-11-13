@@ -40,7 +40,7 @@ public class App {
     List<UserPost> userPostList=null;
     CRUDServices crudService=new CRUDServices();
     try {
-    	userPostList=crudService.queryUserPost(StringUtils.isEmpty(userName)?null:new UserPost(userName,null,null));
+    	userPostList=crudService.queryUserPost(StringUtils.isEmpty(userName)?null:new UserPost(userName,null,null,null));
 	   PostResponses searchCriteria=null;
        for(UserPost userPost:userPostList) {
     	   searchCriteria=new PostResponses();

@@ -12,9 +12,12 @@ const UserPost = ({ UserPost }) => {
                         <h3>
                             <p style={postStyle}> {UserPost.submission}-{UserPost.submissionDate} 
                         <Button
-                            type={'primary'}
+                            type={'button'}
                             title={'Reply'}
-                            style={buttonStyle}/> </p>
+                            style={buttonStyle} 
+                            onClick={() => console.log("clicked!")}/> {UserPost.city}
+                                    </p> 
+                                    
                         </h3>
                         {UserPost.postResponses.map((postResponses) => (
                             <div>

@@ -26,7 +26,7 @@ public class DomainMapper {
 	    return new BasicDBObject(Constants.SUBMISSION, submission.getSubmission())
 	                     .append(Constants.SUBMISSION_DATE, sdf.format(new Date()))
 	                     .append(Constants.USER_NAME, submission.getUserName())
-	                     .append(Constants.POST_RESPONSES, submission.getPostResponses());
+	                     .append(Constants.CITY, submission.getCity());
 	                    
 	}
 	
@@ -39,6 +39,7 @@ public class DomainMapper {
 	                     .append(Constants.RESPONSE_DATE, sdf.format(new Date()))
 	                     .append(Constants.RESPONDER, response.getResponder())
 	                     .append(Constants.USER_SUBMISSION_ID, response.getUserSubmissionId());
+	                     
 	                    
 	}
 	/*
@@ -60,7 +61,7 @@ public class DomainMapper {
 			userPost.setSubmissionDate((String)dbObject.get(Constants.SUBMISSION_DATE));
 			userPost.setUserName((String)dbObject.get(Constants.USER_NAME));
 			userPost.setUserSubmissionId((ObjectId)dbObject.get(Constants.MONGODB_UNIQUE_ID));
-			//userPost.setPostResponses((List<String>)dbObject.get(Constants.POST_RESPONSES));
+			userPost.setCity((String)dbObject.get(Constants.CITY));
 			userPostList.add(userPost);
 			
 			userPost=null;

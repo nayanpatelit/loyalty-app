@@ -11,6 +11,7 @@ public class Constants {
 	public static final String USER_SUBMISSION_ID="userSubmissionId";
 	public static final String RESPONSE="response";
 	public static final String RESPONSE_DATE="responseDate";
+	public static final String CITY="city";
 	
 	
 	

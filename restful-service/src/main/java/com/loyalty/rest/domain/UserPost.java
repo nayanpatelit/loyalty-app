@@ -10,6 +10,7 @@ public class UserPost {
 	private ObjectId userSubmissionId;
 	private String submission;
 	private String submissionDate;
+	private String city;
 	private List<PostResponses> postResponses;
 	
 	
@@ -19,16 +20,29 @@ public class UserPost {
 
 	
 
-	public UserPost(String userName, String submission, String submissionDate) {
+	public UserPost(String userName, String submission, String submissionDate,String city) {
 		super();
 		this.userName = userName;
 		this.submission = submission;
 		this.submissionDate = submissionDate;
+		this.city=city;
 	}
 
 
 	
 	
+	public String getCity() {
+		return city;
+	}
+
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+
 	public List<PostResponses> getPostResponses() {
 		return postResponses;
 	}
@@ -92,17 +106,14 @@ public class UserPost {
 
 	@Override
 	public String toString() {
-		return "UserPost [userName=" + userName + ", submissionId=" + submissionId + ", userSubmissionId="
-				+ userSubmissionId + ", submission=" + submission + ", submissionDate=" + submissionDate
-				+ ", postResponses=" + postResponses + "]";
+		return "UserPost [userName=" + userName + ", userSubmissionId=" + userSubmissionId + ", submission="
+				+ submission + ", submissionDate=" + submissionDate + ", city=" + city + ", postResponses="
+				+ postResponses + "]";
 	}
 
 
 
 	
-
-
-
 		
 	
 
